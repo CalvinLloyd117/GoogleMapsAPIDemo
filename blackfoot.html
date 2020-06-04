@@ -2,26 +2,28 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Website Title</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Lato:400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Lato:400&display=swap" rel="stylesheet" />
 </head>
 
 <body>
     <nav class="primary-nav">
         <ul class="indexNav">
-            <li><a href="index.html" class="button navButton nowrap ">Basics</a>
+            <li><a href="index.html" class="button navButton nowrap">Basics</a></li>
+            <li>
+                <a href="clustering.html" class="button navButton nowrap">Clustering</a
+          >
+        </li>
+        <li>
+          <a href="styling.html" class="button navButton nowrap">Styling</a>
             </li>
-            <li><a href="clustering.html" class="button navButton nowrap">Clustering</a>
-            </li>
-            <li><a href="styling.html" class="button navButton nowrap">Styling</a>
-            </li>
-            <li><a href="more.html" class="button navButton nowrap">More</a>
-            </li>
-            <li><a href="blackfoot.html" class="button navButton nowrap navItemPA">Testing Grounds
-            </a>
+            <li><a href="more.html" class="button navButton nowrap">More</a></li>
+            <li>
+                <a href="blackfoot.html" class="button navButton nowrap navItemPA">Testing Grounds
+          </a>
             </li>
         </ul>
     </nav>
@@ -31,8 +33,7 @@
                 <h1>Blackfoot Style Testing</h1>
                 <p>Welcome to the testing grounds!</p>
             </div>
-            <div class="map-container" id="map">
-            </div>
+            <div class="map-container" id="map"></div>
             <div id="legend">
                 <h3>Legend</h3>
             </div>
@@ -40,8 +41,7 @@
                 <h1>Blackfoot Style Testing</h1>
                 <p>Welcome to the testing grounds!</p>
             </div>
-            <div class="map-container" id="map2">
-            </div>
+            <div class="map-container" id="map2"></div>
             <div id="legend2">
                 <h3>Legend</h3>
             </div>
@@ -49,59 +49,62 @@
     </div>
     <script>
         function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), blackfootMapOptions);
+            map = new google.maps.Map(
+                document.getElementById("map"),
+                blackfootMapOptions
+            );
             map.setOptions({
-                draggableCursor: 'crosshair'
-            })
+                draggableCursor: "crosshair",
+            });
             google.maps.event.addListener(map, "click", getLatLng);
             //addMarker(map, lethbridge);
-            addMarker(map, edmonton)
-            addMarker(map, calgary)
-            addMarker(map, greatfalls)
-            addMarker(map, billings)
-            addMarker(map, princealbert)
-            addMarker(map, regina)
+            addMarker(map, edmonton);
+            addMarker(map, calgary);
+            addMarker(map, greatfalls);
+            addMarker(map, billings);
+            addMarker(map, princealbert);
+            addMarker(map, regina);
 
-            addMarker(map, okotoks)
-            addMarker(map, crowsnestmountain)
-            addMarker(map, crowlodge)
-            addMarker(map, womansbuffalojump)
-            addMarker(map, chiefmountain)
-            addMarker(map, writingonstone)
-            addMarker(map, sweetgrasshills)
+            addMarker(map, okotoks);
+            addMarker(map, crowsnestmountain);
+            addMarker(map, crowlodge);
+            addMarker(map, womansbuffalojump);
+            addMarker(map, chiefmountain);
+            addMarker(map, writingonstone);
+            addMarker(map, sweetgrasshills);
 
-            addMarker(map, neutralhills)
-            addMarker(map, handhills)
-            addMarker(map, porcupinehills)
-            addMarker(map, cypresshills)
-            addMarker(map, bearpawmountains)
-            addMarker(map, littlerockymountains)
-            addMarker(map, judithmountains)
-            addMarker(map, bighornmountains)
-            addMarker(map, beltmountains)
+            addMarker(map, neutralhills);
+            addMarker(map, handhills);
+            addMarker(map, porcupinehills);
+            addMarker(map, cypresshills);
+            addMarker(map, bearpawmountains);
+            addMarker(map, littlerockymountains);
+            addMarker(map, judithmountains);
+            addMarker(map, bighornmountains);
+            addMarker(map, beltmountains);
 
-            addMarker(map, battlecoulee)
-            addMarker(map, pakokilake)
-            addMarker(map, manyberries)
-            addMarker(map, buffalobullshead)
-            addMarker(map, sevenpersons)
-            addMarker(map, cypresshills2)
-                //addMarker(map, longlakes)
-                //addMarker(map, womanssocietylefttheirlodgepole)
-                //greenlake is not where it should be based on the map.
-            addMarker(map, greenlake)
-                //addMarker(map, womanspoint)
-                //addMarker(map, cutbankcreek)
-                //addCircle(map, coaldale, circle, 1000)
-            addShape(map, blackfootTerritoryBounds, territoryOptions)
+            addMarker(map, battlecoulee);
+            addMarker(map, pakokilake);
+            addMarker(map, manyberries);
+            addMarker(map, buffalobullshead);
+            addMarker(map, sevenpersons);
+            addMarker(map, cypresshills2);
+            //addMarker(map, longlakes)
+            //addMarker(map, womanssocietylefttheirlodgepole)
+            //greenlake is not where it should be based on the map.
+            addMarker(map, greenlake);
+            //addMarker(map, womanspoint)
+            //addMarker(map, cutbankcreek)
+            //addCircle(map, coaldale, circle, 1000)
+            addShape(map, blackfootTerritoryBounds, territoryOptions);
 
             //google.maps.event.addListener(map, "click", getLatLng);
-            var legend = document.getElementById('legend');
+            var legend = document.getElementById("legend");
             for (var key in icons) {
                 var type = icons[key];
                 var name = type.name;
                 var icon = type.icon;
-                var div = document.createElement('div');
+                var div = document.createElement("div");
                 div.innerHTML = '<img src="' + icon + '"> ' + name;
                 legend.appendChild(div);
             }
@@ -109,7 +112,11 @@
 
             var counter = 1;
             for (const prop in rockymountainrange) {
-                addOverlay(map, rockymountainrange[prop], "../images/overlays/mountains/mountain" + counter + ".svg")
+                addOverlay(
+                    map,
+                    rockymountainrange[prop],
+                    "images/overlays/mountains/mountain" + counter + ".svg"
+                );
                 counter += 1;
                 if (counter > 7) {
                     counter = 1;
@@ -117,7 +124,11 @@
             }
             counter = 1;
             for (const prop in hills) {
-                addOverlay(map, hills[prop], "../images/overlays/hills/hill" + counter + ".svg")
+                addOverlay(
+                    map,
+                    hills[prop],
+                    "images/overlays/hills/hill" + counter + ".svg"
+                );
                 counter += 1;
                 if (counter > 3) {
                     counter = 1;
@@ -128,9 +139,17 @@
             var c2 = 1;
             for (const prop in beltmountainrange) {
                 if (c2 % 7 == 1) {
-                    addOverlay(map, beltmountainrange[prop], "../images/overlays/mountains/mountain" + counter + ".svg")
+                    addOverlay(
+                        map,
+                        beltmountainrange[prop],
+                        "images/overlays/mountains/mountain" + counter + ".svg"
+                    );
                 } else {
-                    addOverlay(map, beltmountainrange[prop], "../images/overlays/hills/hill" + counter + ".svg")
+                    addOverlay(
+                        map,
+                        beltmountainrange[prop],
+                        "images/overlays/hills/hill" + counter + ".svg"
+                    );
                 }
 
                 counter += 1;
@@ -140,45 +159,47 @@
                 }
             }
 
-
-            map2 = new google.maps.Map(document.getElementById('map2'), blackfootMapOptions2);
-            map2.set
+            map2 = new google.maps.Map(
+                document.getElementById("map2"),
+                blackfootMapOptions2
+            );
+            map2.set;
             map.setOptions({
-                    draggableCursor: 'crosshair'
-                })
-                //addMarker(map, lethbridge);
-            addMarker(map2, edmonton)
-            addMarker(map2, calgary)
-            addMarker(map2, greatfalls)
-            addMarker(map2, billings)
-            addMarker(map2, princealbert)
-            addMarker(map2, regina)
+                draggableCursor: "crosshair",
+            });
+            //addMarker(map, lethbridge);
+            addMarker(map2, edmonton);
+            addMarker(map2, calgary);
+            addMarker(map2, greatfalls);
+            addMarker(map2, billings);
+            addMarker(map2, princealbert);
+            addMarker(map2, regina);
 
-            addMarker(map2, okotoks)
-            addMarker(map2, crowsnestmountain)
-            addMarker(map2, crowlodge)
-            addMarker(map2, womansbuffalojump)
-            addMarker(map2, chiefmountain)
-            addMarker(map2, writingonstone)
-            addMarker(map2, sweetgrasshills)
+            addMarker(map2, okotoks);
+            addMarker(map2, crowsnestmountain);
+            addMarker(map2, crowlodge);
+            addMarker(map2, womansbuffalojump);
+            addMarker(map2, chiefmountain);
+            addMarker(map2, writingonstone);
+            addMarker(map2, sweetgrasshills);
 
-            addMarker(map2, neutralhills)
-            addMarker(map2, handhills)
-            addMarker(map2, porcupinehills)
-            addMarker(map2, cypresshills)
-            addMarker(map2, bearpawmountains)
-            addMarker(map2, littlerockymountains)
-            addMarker(map2, judithmountains)
-            addMarker(map2, bighornmountains)
-            addMarker(map2, beltmountains)
-            addShape(map2, blackfootTerritoryBounds, territoryOptions)
+            addMarker(map2, neutralhills);
+            addMarker(map2, handhills);
+            addMarker(map2, porcupinehills);
+            addMarker(map2, cypresshills);
+            addMarker(map2, bearpawmountains);
+            addMarker(map2, littlerockymountains);
+            addMarker(map2, judithmountains);
+            addMarker(map2, bighornmountains);
+            addMarker(map2, beltmountains);
+            addShape(map2, blackfootTerritoryBounds, territoryOptions);
 
-            var legend2 = document.getElementById('legend2');
+            var legend2 = document.getElementById("legend2");
             for (var key in icons) {
                 var type = icons[key];
                 var name = type.name;
                 var icon = type.icon;
-                var div = document.createElement('div');
+                var div = document.createElement("div");
                 div.innerHTML = '<img src="' + icon + '"> ' + name;
                 legend2.appendChild(div);
             }
@@ -230,11 +251,9 @@
     <script src="js/scripts.js"></script>
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgosS4g_OXiuSt_qWy00qAJTYoG5fyXU0&callback=initMap">
     </script> -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz5oTZNi59V1_4hoH4PQzyKE31joty128&callback=initMap">
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz5oTZNi59V1_4hoH4PQzyKE31joty128&callback=initMap"></script>
     <script type="module" async defer src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
     <script src="https://unpkg.com/focus-visible@5.0.1/dist/focus-visible.js" defer></script>
-
 </body>
 
 </html>
