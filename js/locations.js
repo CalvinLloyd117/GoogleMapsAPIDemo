@@ -20,7 +20,7 @@ var britishMuseum = {
   lat: 51.5194,
   lng: -0.127,
   //info: "<h1>British Museum</h1> <img src='../images/m1.png'>"
-  iconImage: "images/knifeMarker2.png",
+  iconImage: "./images/knifeMarker2.png",
   //iconImage: "../images/asurprise.gif",
   info:
     '<h1>British Museum</h1><model-viewer id="testKnife2" src="models/Knife/knife.gltf" interaction-prompt="auto" camera-controls auto-rotate interaction-prompt="none" interaction-policy="allow-when-focused" alt="A 3D model of a Blackfoot Knife"></model-viewer>',
