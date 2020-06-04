@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Lato:400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="primary-nav">
+        <ul class="indexNav">
+            <li><a href="index.html" class="button navButton nowrap ">Basics</a>
+            </li>
+            <li><a href="clustering.html" class="button navButton nowrap">Clustering</a>
+            </li>
+            <li><a href="styling.html" class="button navButton nowrap">Styling</a>
+            </li>
+            <li><a href="more.html" class="button navButton nowrap navItemPA">More</a>
+            </li>
+            <li><a href="blackfoot.html" class="button navButton nowrap">Testing Grounds
+            </a>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <div class="grid-parent">
+            <div class="text-container">
+                <h1>Traversing the Map</h1>
+                <p>I have tested some interesting methods to traverse the map in a way besides manual panning. For example, transitioning from one location to another based on vertical scrolling. </p>
+                <p>Perhaps as an individual is reading about an artifact, and how it was moved from one place to another, the map can pan automatically. However, due to timing issues, the function I made is not perfect, and is still a work in progress. If
+                    such functionality is desired, I will have to experiment further to find an ideal solution. However, this provides proof of concept.</p>
+            </div>
+            <div class="map-container" id="map">
+            </div>
+            <div class="text-container">
+                <h1>Models in Info-Windows</h1>
+                <p>I knew that info-windows could contain images through the img tag. So I figured it would work with any tag. I was pleasantly surprised that it does.</p>
+                <div class="surpriseBox">
+                </div>
+            </div>
+            <div class="map-container" id="map2">
+            </div>
+        </div>
+    </div>
+    <script>
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById('map'), options);
+            addMarker(map, lethbridge);
+            addMarker(map, edmonton, defaultMarker)
+            console.log(window.scrollY)
+            var atEdmonton = false;
+            window.addEventListener('scroll', function(e) {
+                console.log(window.scrollY)
+                if ((window.scrollY < 200) && (atEdmonton == true)) {
+                    // console.log(window.scrollY)
+                    setTimeout(function() {
+                        map.setZoom(6)
+                        setTimeout(function() {
+                            map.panTo(lethbridge)
+                            setTimeout(function() {
+                                map.setZoom(10)
+                                atEdmonton = false;
+                            }, 1000)
+                        }, 1000)
+                    }, 1000)
+                }
+                if ((window.scrollY >= 200) && (atEdmonton == false)) {
+                    // console.log(window.scrollY)
+                    setTimeout(function() {
+                        map.setZoom(6)
+                        setTimeout(function() {
+                            map.panTo(edmonton)
+                            setTimeout(function() {
+                                map.setZoom(10)
+                                atEdmonton = true;
+                            }, 1000)
+                        }, 1000)
+                    }, 1000)
+                }
+
+            })
+            map2 = new google.maps.Map(document.getElementById('map2'), britishMuseumMap);
+            addMarker(map2, britishMuseum)
+
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/locations.js"></script>
+    <script src="js/styles.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/scripts.js"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgosS4g_OXiuSt_qWy00qAJTYoG5fyXU0&callback=initMap">
+    </script> -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz5oTZNi59V1_4hoH4PQzyKE31joty128&callback=initMap">
+    </script>
+    <script type="module" async defer src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js">
+        <script src="https://unpkg.com/focus-visible@5.0.1/dist/focus-visible.js" defer></script>
+    </script>
+</body>
+
+</html>

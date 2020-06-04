@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marker Clustering</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Lato:400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script src="js/locations.js"></script>
+    <script src="js/styles.js"></script>
+    <script src="js/options.js"></script>
+    <nav class="primary-nav">
+        <ul class="indexNav">
+            <li><a href="index.html" class="button navButton nowrap">Basics</a>
+            </li>
+            <li><a href="clustering.html" class="button navButton nowrap navItemPA">Clustering</a>
+            </li>
+            <li><a href="styling.html" class="button navButton nowrap">Styling</a>
+            </li>
+            <li><a href="more.html" class="button navButton nowrap">More</a>
+            </li>
+            <li><a href="blackfoot.html" class="button navButton nowrap">Testing Grounds
+            </a>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <div class="grid-parent">
+            <div class="text-container">
+                <h1>Clustering Example</h1>
+                <p>Markers are able to be clustered together into groups, based on proximity to one another, using the <i>MarkerClustererPlus</i> external library.</p>
+                <p>If there are a large number of labels, we are able to cluster them and avoid clutter. </p>
+                <p>Clustering icons are totally customizable, as are the individual markers. </p>
+                <p>This function essentially offers the same exact functionality included in <i>addMarker</i>, but MarkerClustererPlus requires a function of a specific format.</p>
+            </div>
+            <div class="map-container" id="map"></div>
+            <div class="text-container">
+                <h1>Drawing and (more) Shapes</h1>
+                <p>Drawing with custom shapes will offer a little more functionality than simply using a circle. </p>
+                <p>For example, this could be useful to hightlight certain Blackfoot territories, which could not be defined by a simple circle or rectangle.</p>
+                <p>These of course fully support info windows, color and customization options, the same as what circles and markers have.</p>
+                <p><i>function addShape(map, path, options)</i></p>
+                <p>This function takes three arguments. <i>Map</i> is the map to which the shape will be added. <i>path</i> is an ordered array of latLng objects, which describe the path of the border of the shape. Finally, <i>options</i> is a JS object
+                    literal which contains stylizing information (same as <i>addMarker</i> and <i>addCircle</i>).</p>
+                <p>To aid in the process of making a shape, I have made a simple funtion which can be used as a map event listener, <i>getLatLng(event)</i> which returns the latLng of the location that you clicked in the map. This will help to find the necessary
+                    coordinates to build a custom shape.</p>
+            </div>
+            <div class="map-container" id="map3"></div>
+            <div class="text-container">
+                <h1>Heat Mapping</h1>
+                <p>Unfortunately does not seem to work. Based on my research, it seems that this feature is having some issues with timing, which google needs to sort out.</p>
+                <p>I figured this would be an interesting way to display some locational data, but we may have to settle for using circles, or other shapes to specify this for now.</p>
+            </div>
+            <div class="map-container" id="map2"></div>
+
+            <script>
+                var heatmap;
+                var map2;
+
+                function initMap() {
+                    var options = {
+                            zoom: 3,
+                            minZoom: 2,
+                            center: lethbridge,
+                            restriction: noGreyRestriction
+                        }
+                        //generate a new map in id='map' with options
+                    var map = new google.maps.Map(document.getElementById('map'), options)
+                    var labels = 'ABCDEFG';
+                    // var locations = [uoflMarker, coaldaleMarker, calgary, reddeer, edmonton, coalhurst, baffinbay]
+                    var markers = locations.map(function(location, i) {
+                        if (location.coords) {
+                            var marker = new google.maps.Marker({
+                                position: location.coords,
+                                map: map,
+                            });
+                            //otherwise, the location is a latLng object
+                        } else {
+                            var marker = new google.maps.Marker({
+                                position: location,
+                                map: map,
+                            });
+                        }
+                        if (location.iconImage) {
+                            marker.setIcon(location.iconImage);
+                        } else if (options.iconImage) {
+                            marker.setIcon(options.iconImage);
+                        } else if (location.type) {
+                            marker.setIcon(icons[location.type].icon)
+                        } else if (options.type) {
+                            marker.setIcon(icons[options.type].icon)
+                        }
+                        // else if (location.type) {
+                        //     marker.setIcon(icons[location.type].icon)
+                        // }
+                        if (location.info) {
+                            var infoWindow = new google.maps.InfoWindow({
+                                content: location.info
+                            });
+                            marker.addListener('click', function() {
+                                //infoWindow.open(map, marker);
+                                if (activeInfoWindow) {
+                                    activeInfoWindow.close();
+                                }
+                                infoWindow.open(map, marker);
+                                activeInfoWindow = infoWindow;
+                            });
+                        }
+                        return marker;
+                    });
+
+                    var markerCluster = new MarkerClusterer(map, markers, {
+                        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+                    });
+
+                    // var heatMapData = [{
+                    //     location: uofl,
+                    //     weight: 0.5
+                    // }, {
+                    //     location: coaldale,
+                    //     weight: 2
+                    // }, {
+                    //     location: calgary,
+                    //     weight: 3
+                    // }, {
+                    //     location: reddeer,
+                    //     weight: 2
+                    // }, {
+                    //     location: edmonton,
+                    //     weight: 0.5
+                    // }, {
+                    //     location: coalhurst,
+                    //     weight: 0.5
+                    // }, {
+                    //     location: baffinbay,
+                    //     weight: 0.5
+                    // }];
+
+                    // var map2 = new google.maps.Map(document.getElementById('map2'), options)
+                    // var heatmap = new google.maps.visualization.HeatmapLayer({
+                    //     data: heatMapData
+                    // });
+                    // heatmap.setMap(map2);
+                    // var heatMapData = [{
+                    //         location: new google.maps.LatLng(37.782, -122.447),
+                    //         weight: 0.5
+                    //     },
+                    //     new google.maps.LatLng(37.782, -122.445), {
+                    //         location: new google.maps.LatLng(37.782, -122.443),
+                    //         weight: 2
+                    //     }, {
+                    //         location: new google.maps.LatLng(37.782, -122.441),
+                    //         weight: 3
+                    //     }, {
+                    //         location: new google.maps.LatLng(37.782, -122.439),
+                    //         weight: 2
+                    //     },
+                    //     new google.maps.LatLng(37.782, -122.437), {
+                    //         location: new google.maps.LatLng(37.782, -122.435),
+                    //         weight: 0.5
+                    //     },
+
+                    //     {
+                    //         location: new google.maps.LatLng(37.785, -122.447),
+                    //         weight: 3
+                    //     }, {
+                    //         location: new google.maps.LatLng(37.785, -122.445),
+                    //         weight: 2
+                    //     },
+                    //     new google.maps.LatLng(37.785, -122.443), {
+                    //         location: new google.maps.LatLng(37.785, -122.441),
+                    //         weight: 0.5
+                    //     },
+                    //     new google.maps.LatLng(37.785, -122.439), {
+                    //         location: new google.maps.LatLng(37.785, -122.437),
+                    //         weight: 2
+                    //     }, {
+                    //         location: new google.maps.LatLng(37.785, -122.435),
+                    //         weight: 3
+                    //     }
+                    // ];
+
+                    // var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
+
+
+                    // var heatmap = new google.maps.visualization.HeatmapLayer({
+                    //     data: heatMapData
+                    // });
+                    // heatmap.setMap(map);
+                    // heatmap = new google.maps.visualization.HeatmapLayer({
+                    //     data: heatMapData,
+                    // });
+
+                    // map2 = new google.maps.Map(document.getElementById('map2'), {
+                    //     center: sanFrancisco,
+                    //     zoom: 13,
+                    //     minZoom: 2,
+                    //     mapTypeId: 'satellite'
+                    // });
+                    //heatmap.setMap(map2);
+
+                    var map3 = new google.maps.Map(document.getElementById('map3'), {
+                        zoom: 3,
+                        minZoom: 2,
+                        center: lethbridge,
+                        //mapTypeId: 'terrain'
+                        restriction: noGreyRestriction
+                    });
+                    google.maps.event.addListener(map3, "click", getLatLng);
+                    // google.maps.event.addListener(map3, "click", function(event) {
+                    //     var latitude = event.latLng.lat();
+                    //     var longitude = event.latLng.lng();
+                    //     console.log(latitude + ', ' + longitude);
+                    // });
+                    var lineSymbol = {
+                        path: 'M 0,-1 0,1',
+                        strokeOpacity: 1,
+                        scale: 4
+                    };
+                    addShape(map3, albertaBounds, shapeOptions);
+                    addShape(map3, manitobaBounds, shapeOptions2);
+                    var line = new google.maps.Polyline({
+                        path: manitobaBounds,
+                        strokeOpacity: 0,
+                        icons: [{
+                            icon: lineSymbol,
+                            offset: '0',
+                            repeat: '20px'
+                        }],
+                        map: map3
+                    });
+                    addMarker(map3, baffinbay)
+                    addMarker(map3, {
+                        lat: 0,
+                        lng: 0
+                    })
+                    addCircle(map3, lethbridge, redCircle, 15000)
+                }
+
+                var locations = [uoflMarker, coaldaleMarker, calgary, reddeer, edmonton, coalhurst, baffinbay] //, coaldale, calgary, reddeer, edmonton, coalhurst]
+            </script>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz5oTZNi59V1_4hoH4PQzyKE31joty128&callback=initMap">
+    </script>
+</body>
+
+</html>

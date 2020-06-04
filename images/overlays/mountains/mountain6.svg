@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49 25" width="49" height="25">
+	<defs>
+		<linearGradient id="grd1" gradientUnits="userSpaceOnUse"  x1="1.47" y1="12.5" x2="135.73" y2="12.5">
+			<stop offset="0" stop-color="#80797b"  />
+			<stop offset="0.36" stop-color="#b5bad0"  />
+			<stop offset="1" stop-color="#b1b9cd"  />
+		</linearGradient>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: url(#grd1) } 
+	</style>
+	<path id="Background" class="shp0" d="M0 23L6 12L22 0L49 25" />
+</svg>

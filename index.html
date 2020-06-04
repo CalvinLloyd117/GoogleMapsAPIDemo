@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Lato:400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <nav class="primary-nav">
+        <ul class="indexNav">
+            <li><a href="index.html" class="button navButton nowrap navItemPA">Basics</a>
+            </li>
+            <li><a href="clustering.html" class="button navButton nowrap">Clustering</a>
+            </li>
+            <li><a href="styling.html" class="button navButton nowrap">Styling</a>
+            </li>
+            <li><a href="more.html" class="button navButton nowrap">More</a>
+            </li>
+            <li><a href="blackfoot.html" class="button navButton nowrap">Testing Grounds3
+            </a>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <div class="grid-parent">
+            <div class="text-container">
+                <h1>Google Maps Basics</h1>
+                <p>Google maps have a huge number of customizable features. There is no way that it would be possible to demonstrate every feature. Partly due to the density of what Google maps offers. Furthermore, Google maps offers an API, which allows
+                    me to utilize Google's Maps systems to create my own functions. Programming examples would be quite time consuming, especially if they were for features we would never consider using.
+                </p>
+                <h2>Basic Map Construction</h2>
+                <p>Google provides the <i>initMap()</i> callback function, inwhich all of the map(s) and their operations are performed.</p>
+                <p>Maps are constructed using <i>new google.maps.Map(document.getElementById('map'), options)</i> which takes two arguments.</p>
+                <p>The first is the div container (id) where the map is to be put. The <i>options</i> is an object literal, which contains information such as initial zoom, mapTypeId, center location, and more.</p>
+                <h2>Locations</h2>
+                <p>In general, locations are stored as a latLng JS litteral (not to be confused with a json, though the syntax is shockingly similar). </p>
+                <h2>Markers</h2>
+                <p>Markers can be added to a given map dynamically using a home-made function. I have set up these methods to be as flexible as possible, allowing for easy insertion of markers, while keeping the html relatively clean from unnecessary JS
+                    clutter.
+                </p>
+                <p><i>function addMarker(map, location, options = {})</i></p>
+                <p>This function takes three arguments. The first, <i>map</i> is a Google map, being the map to which the marker will be added. Second, <i>location</i> is a latLng object, which denotes the location to be added. <i>options</i> is a styling
+                    literal, which includes things like info for info-windows, marker type, and iconImage. Options can even be ignored, and default parameters will be applied. All parameters also follow a hierarchy. For example, if both <i>type</i> and
+                    <i>iconImage</i> are supplied in options, the iconImage will take precedence over type. </i>
+                </p>
+            </div>
+            <div class="map-container" id="map">
+            </div>
+            <div class="text-container">
+                <h1>Shapes</h1>
+                <p>The circles inparticular would be excellent for the purposes of indicating the general, or best estimate location, of where the artifacts were found, where materials could be from (with respect to Blackfoot knowledge transfer, but this
+                    is just an example). Markers on the otherhand would be great for indicating exact locations of the museums or other points of interest. Of course, both circles and markers are fully customizable.</p>
+                <p><i>function addCircle(map, location, options, radius)</i></p>
+                <p>Function takes in 4 arguments (the first three being the same as the marker function) as well as <i>radius</i> which controls the size of the circle to be added.</p>
+                <h1>UI and UX</h1>
+                <p>Google also give control over the default UI aswell as some UX features. UI elements can be replaced with custom button styles, or removed from the map entirely. </p>
+                <p>For UX, accidental map zooming can be prevented by setting gestureHandling: 'cooperative'. This also prevents one-finger panning on mobile.</p>
+                <p>Additionally, I have made a restriction which solved an issue I was having with the display properties of the map. In general, this change limits how far users can zoom out of the map, aswell as how far they are able to pan out of the
+                    map. This prevents the ugly grey area outside of the map from being visible.</p>
+                <p>Additionally, a restriction was added to prevent multiple info-windows from being displayed at the same time. Clicking and opening a second shape/marker will replace the first info-window.</p>
+            </div>
+            <div class="map-container" id="map2">
+            </div>
+            <script>
+                function initMap() {
+                    //generate a new map in id='map' with options
+                    var map = new google.maps.Map(document.getElementById('map'), options)
+                    var map2 = new google.maps.Map(document.getElementById('map2'), options)
+                    addMarker(map, uofl, uoflMarker);
+                    addMarker(map, coaldale) //, coaldaleMarker);
+                    addMarker(map, coalhurst) //, coalhurstMarker);
+                    addMarker(map, ftMacleod);
+                    addMarker(map2, uofl) //, uoflMarker);
+                    addCircle(map2, coalhurst, redCircle);
+                    addCircle(map2, lethbridge, circle, 10000);
+
+                }
+            </script>
+        </div>
+    </div>
+    <script src="js/locations.js"></script>
+    <script src="js/styles.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/scripts.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz5oTZNi59V1_4hoH4PQzyKE31joty128&callback=initMap">
+    </script>
+</body>
+
+</html>

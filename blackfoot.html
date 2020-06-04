@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Lato:400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="primary-nav">
+        <ul class="indexNav">
+            <li><a href="index.html" class="button navButton nowrap ">Basics</a>
+            </li>
+            <li><a href="clustering.html" class="button navButton nowrap">Clustering</a>
+            </li>
+            <li><a href="styling.html" class="button navButton nowrap">Styling</a>
+            </li>
+            <li><a href="more.html" class="button navButton nowrap">More</a>
+            </li>
+            <li><a href="blackfoot.html" class="button navButton nowrap navItemPA">Testing Grounds
+            </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <div class="grid-parent">
+            <div class="text-container">
+                <h1>Blackfoot Style Testing</h1>
+                <p>Welcome to the testing grounds!</p>
+            </div>
+            <div class="map-container" id="map">
+            </div>
+            <div id="legend">
+                <h3>Legend</h3>
+            </div>
+            <div class="text-container">
+                <h1>Blackfoot Style Testing</h1>
+                <p>Welcome to the testing grounds!</p>
+            </div>
+            <div class="map-container" id="map2">
+            </div>
+            <div id="legend2">
+                <h3>Legend</h3>
+            </div>
+        </div>
+    </div>
+    <script>
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), blackfootMapOptions);
+            map.setOptions({
+                draggableCursor: 'crosshair'
+            })
+            google.maps.event.addListener(map, "click", getLatLng);
+            //addMarker(map, lethbridge);
+            addMarker(map, edmonton)
+            addMarker(map, calgary)
+            addMarker(map, greatfalls)
+            addMarker(map, billings)
+            addMarker(map, princealbert)
+            addMarker(map, regina)
+
+            addMarker(map, okotoks)
+            addMarker(map, crowsnestmountain)
+            addMarker(map, crowlodge)
+            addMarker(map, womansbuffalojump)
+            addMarker(map, chiefmountain)
+            addMarker(map, writingonstone)
+            addMarker(map, sweetgrasshills)
+
+            addMarker(map, neutralhills)
+            addMarker(map, handhills)
+            addMarker(map, porcupinehills)
+            addMarker(map, cypresshills)
+            addMarker(map, bearpawmountains)
+            addMarker(map, littlerockymountains)
+            addMarker(map, judithmountains)
+            addMarker(map, bighornmountains)
+            addMarker(map, beltmountains)
+
+            addMarker(map, battlecoulee)
+            addMarker(map, pakokilake)
+            addMarker(map, manyberries)
+            addMarker(map, buffalobullshead)
+            addMarker(map, sevenpersons)
+            addMarker(map, cypresshills2)
+                //addMarker(map, longlakes)
+                //addMarker(map, womanssocietylefttheirlodgepole)
+                //greenlake is not where it should be based on the map.
+            addMarker(map, greenlake)
+                //addMarker(map, womanspoint)
+                //addMarker(map, cutbankcreek)
+                //addCircle(map, coaldale, circle, 1000)
+            addShape(map, blackfootTerritoryBounds, territoryOptions)
+
+            //google.maps.event.addListener(map, "click", getLatLng);
+            var legend = document.getElementById('legend');
+            for (var key in icons) {
+                var type = icons[key];
+                var name = type.name;
+                var icon = type.icon;
+                var div = document.createElement('div');
+                div.innerHTML = '<img src="' + icon + '"> ' + name;
+                legend.appendChild(div);
+            }
+            map.controls[google.maps.ControlPosition.LEFT_CENTER].push(legend);
+
+            var counter = 1;
+            for (const prop in rockymountainrange) {
+                addOverlay(map, rockymountainrange[prop], "../images/overlays/mountains/mountain" + counter + ".svg")
+                counter += 1;
+                if (counter > 7) {
+                    counter = 1;
+                }
+            }
+            counter = 1;
+            for (const prop in hills) {
+                addOverlay(map, hills[prop], "../images/overlays/hills/hill" + counter + ".svg")
+                counter += 1;
+                if (counter > 3) {
+                    counter = 1;
+                }
+            }
+
+            counter = 1;
+            var c2 = 1;
+            for (const prop in beltmountainrange) {
+                if (c2 % 7 == 1) {
+                    addOverlay(map, beltmountainrange[prop], "../images/overlays/mountains/mountain" + counter + ".svg")
+                } else {
+                    addOverlay(map, beltmountainrange[prop], "../images/overlays/hills/hill" + counter + ".svg")
+                }
+
+                counter += 1;
+                c2 += 1;
+                if (counter > 3) {
+                    counter = 1;
+                }
+            }
+
+
+            map2 = new google.maps.Map(document.getElementById('map2'), blackfootMapOptions2);
+            map2.set
+            map.setOptions({
+                    draggableCursor: 'crosshair'
+                })
+                //addMarker(map, lethbridge);
+            addMarker(map2, edmonton)
+            addMarker(map2, calgary)
+            addMarker(map2, greatfalls)
+            addMarker(map2, billings)
+            addMarker(map2, princealbert)
+            addMarker(map2, regina)
+
+            addMarker(map2, okotoks)
+            addMarker(map2, crowsnestmountain)
+            addMarker(map2, crowlodge)
+            addMarker(map2, womansbuffalojump)
+            addMarker(map2, chiefmountain)
+            addMarker(map2, writingonstone)
+            addMarker(map2, sweetgrasshills)
+
+            addMarker(map2, neutralhills)
+            addMarker(map2, handhills)
+            addMarker(map2, porcupinehills)
+            addMarker(map2, cypresshills)
+            addMarker(map2, bearpawmountains)
+            addMarker(map2, littlerockymountains)
+            addMarker(map2, judithmountains)
+            addMarker(map2, bighornmountains)
+            addMarker(map2, beltmountains)
+            addShape(map2, blackfootTerritoryBounds, territoryOptions)
+
+            var legend2 = document.getElementById('legend2');
+            for (var key in icons) {
+                var type = icons[key];
+                var name = type.name;
+                var icon = type.icon;
+                var div = document.createElement('div');
+                div.innerHTML = '<img src="' + icon + '"> ' + name;
+                legend2.appendChild(div);
+            }
+            map2.controls[google.maps.ControlPosition.LEFT_CENTER].push(legend2);
+            // addOverlay(map, {
+            //         lat: 52.10309637042688,
+            //         lng: -112.10043866429126
+            //     }, "https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg")
+            // counter = 1;
+            // google.maps.event.addListener(map, "click", function(event) {
+            //     var latitude = event.latLng.lat();
+            //     var longitude = event.latLng.lng();
+            //     /*
+            //                     addOverlay(map, {
+            //                         lat: latitude,
+            //                         lng: longitude
+            //                     }, "../images/overlays/mountains/mountain" + counter + ".svg")
+            //                     counter += 1;
+            //                     if (counter > 7) {
+            //                         counter = 1;
+            //                     }
+            //                     */
+            //     addOverlay(map, {
+            //         lat: latitude,
+            //         lng: longitude
+            //     }, "../images/overlays/hills/hill" + counter + ".svg")
+            //     counter += 1;
+            //     if (counter > 3) {
+            //         counter = 1;
+            //     }
+            // });
+            // var imageBounds = {
+            //     north: 52.46601583042973,
+            //     south: 51.423153946460125,
+            //     east: -114.53940350804126,
+            //     west: -111.30942303929126
+            // };
+
+            // historicalOverlay = new google.maps.GroundOverlay(
+            //     'https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+            //     imageBounds);
+            // historicalOverlay.setMap(map);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/locations.js"></script>
+    <script src="js/styles.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/scripts.js"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgosS4g_OXiuSt_qWy00qAJTYoG5fyXU0&callback=initMap">
+    </script> -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz5oTZNi59V1_4hoH4PQzyKE31joty128&callback=initMap">
+    </script>
+    <script type="module" async defer src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+    <script src="https://unpkg.com/focus-visible@5.0.1/dist/focus-visible.js" defer></script>
+
+</body>
+
+</html>

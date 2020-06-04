@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Lato:400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="primary-nav">
+        <ul class="indexNav">
+            <li><a href="index.html" class="button navButton nowrap ">Basics</a>
+            </li>
+            <li><a href="clustering.html" class="button navButton nowrap">Clustering</a>
+            </li>
+            <li><a href="styling.html" class="button navButton nowrap navItemPA">Styling</a>
+            </li>
+            <li><a href="more.html" class="button navButton nowrap">More</a>
+            </li>
+            <li><a href="blackfoot.html" class="button navButton nowrap">Testing Grounds
+            </a>
+        </ul>
+    </nav>
+    <div class="wrapper">
+        <div class="grid-parent">
+            <div class="text-container">
+                <h1>Styling</h1>
+                <p>Google maps gives us the ability to customize all features of the map. Colors, icons, hiding certain elements by type, etc.</p>
+                <p>For example, this map was designed using the Blackfoot Digital Library colors, just as an example to show what is possible in terms of customization.</p>
+                <p>Nearly every aspect of the map can be changed!</p>
+                <p>To set a style, first you must create a javascript object litteral in the required format. This can be done manually, or using the Google style tool found <a href="https://mapstyle.withgoogle.com/">here</a>.</p>
+                <p>This style can then be set in the mapOptions for a given map.</p>
+                <p>Ex. styles: blackfootDigitalLibraryStyle</p>
+                <p>Unfortunately, Custom styles does not mean full customization. We are able to change certain primary attributes of the map, such as what is displayed (labels, primary routes, businesses, etc) as well as the color scheme.</p>
+                <p>We are not able to change the default geometry of the maps, such as what a mountain looks like for example.</p>
+                <p>This also means we are not able to change the font-family of the labels in the map either. Both of which may be important to replicating a traditional Blackfoot map style.</p>
+                <p>Finally, geographical data (like vegetation) is baked into the properties of the map. By setting landscape to custom colors, this data is lost. It is possible to change the relative color of the map using hue, saturation, etc. Though,
+                    that still is not capable of full color customization, while retaining data such as vegetation and elevation.</p>
+
+
+            </div>
+            <div class="map-container" id="map">
+            </div>
+            <div class="text-container">
+                <h1>Custom Legends</h1>
+                <p>Legends and markers can also be customized for our needs. The function that I make for this is suppoed to be somewhat universal for adding markers. addMarker(map, location, options) takes in the map which the marker will be added to, a
+                    location in the form of a latLng JS object, and a JS object containing the options.</p>
+                <p>Options include things like the iconImage URL, the type of the marker, and the info that will be added to an info window. </p>
+                <p>The icons i have chosen are just some of the ones from Google's library of icons. These are just forexample purposes, and do not really have any significance here. </p>
+                <p>A huge library of custom Google Maps/Earth Markers can be found <a href='http://kml4earth.appspot.com/icons.html'>here</a>. Google also lists <a href="https://mapicons.mapsmarker.com/">this site</a> as a reliable place for retrieving map
+                    markers. Of course, markers can be made ourselves. All that is required is that they are correctly sized, and have a transparent background.
+                </p>
+            </div>
+            <div class="map-container" id="map2">
+            </div>
+            <div id="legend">
+                <h3>Legend</h3>
+            </div>
+        </div>
+    </div>
+    <script>
+        function initMap() {
+            var map1options = {
+                restriction: noGreyRestriction,
+                minZoom: 2,
+                zoom: 10,
+                center: lethbridge,
+                //styles: darkMode,
+                //styles: bfdlStyle,
+                styles: blackfootDigitalLibraryStyle,
+                //mapTypeId: 'terrain',
+                mapTypeControl: true
+                    // zoomControl: false
+            }
+            var map2options = {
+
+                    zoom: 12,
+                    center: lethbridge,
+                    mapTypeId: 'roadmap'
+                }
+                //generate a new map in id='map' with options
+
+            var map = new google.maps.Map(document.getElementById('map'), map1options)
+
+            map2 = new google.maps.Map(document.getElementById('map2'), map2options);
+
+
+            // var features = [{
+            //     position: new google.maps.LatLng(-33.91721, 151.22630),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91539, 151.22820),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91747, 151.22912),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91910, 151.22907),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91725, 151.23011),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91872, 151.23089),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91784, 151.23094),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91682, 151.23149),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91790, 151.23463),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91666, 151.23468),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.916988, 151.233640),
+            //     type: 'info'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+            //     type: 'parking'
+            // }, {
+            //     position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
+            //     type: 'parking'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
+            //     type: 'parking'
+            // }, {
+            //     position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
+            //     type: 'parking'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
+            //     type: 'parking'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
+            //     type: 'parking'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
+            //     type: 'parking'
+            // }, {
+            //     position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
+            //     type: 'library'
+            // }];
+
+            // //Create markers.
+            // features.forEach(function(feature) {
+            //     var marker = new google.maps.Marker({
+            //         position: feature.position,
+            //         icon: icons[feature.type].icon,
+            //         map: map2
+            //     });
+            // });
+
+            var legend = document.getElementById('legend');
+            for (var key in icons) {
+                var type = icons[key];
+                var name = type.name;
+                var icon = type.icon;
+                var div = document.createElement('div');
+                div.innerHTML = '<img src="' + icon + '"> ' + name;
+                legend.appendChild(div);
+            }
+
+            map2.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+
+            addCircle(map, coaldale, redCircle);
+            addCircle(map, lethbridge, redCircle);
+            addMarker(map, uofl, defaultMarker);
+            addMarker(map2, uoflMarker)
+                //addCircle(map2, lethbridge, redCircle);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/locations.js"></script>
+    <script src="js/styles.js"></script>
+    <script src="js/options.js"></script>
+    <script src="js/scripts.js"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgosS4g_OXiuSt_qWy00qAJTYoG5fyXU0&callback=initMap">
+    </script> -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCz5oTZNi59V1_4hoH4PQzyKE31joty128&callback=initMap">
+    </script>
+</body>
+
+</html>
