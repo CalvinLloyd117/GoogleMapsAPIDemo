@@ -1,4 +1,4 @@
-var iconBase = "./images/markers/";
+var iconBase = "images/markers/";
 
 var icons = {
   city: {
